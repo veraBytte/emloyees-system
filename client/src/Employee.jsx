@@ -2,6 +2,8 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
+import SearchEmployee from './SearchEmployee'; // Asegúrate de que la ruta sea correcta
+
 function Employee() {
   const [data, setData] = useState([])
 
@@ -36,6 +38,7 @@ function Employee() {
       </div>
       <Link to="/create" className='btn btn-success'>Add Employee</Link>
       <div className='mt-3'>
+        <SearchEmployee /> {/* Agrega el componente de búsqueda aquí */}
         <table className='table'>
           <thead>
             <tr>
@@ -64,6 +67,10 @@ function Employee() {
             })}
           </tbody>
         </table>
+
+        {/* Busqueda */}
+
+        {/* Fin busqueda */}
       </div>
     </div>
   )

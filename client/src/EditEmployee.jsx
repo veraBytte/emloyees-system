@@ -27,14 +27,16 @@ function EditEmployee() {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		axios.put('http://localhost:8081/update/'+id, data)
-		.then(res => {
-			if(res.data.Status === "Success") {
-				navigate('/employee')
+
+		axios.put(`http://localhost:8081/update/${id}`, data)
+			.then((res) => {
+			if (res.data.Status === "Success") {
+				navigate('/employee');
 			}
-		})
-		.catch(err => console.log(err));
-	}
+			})
+			.catch((err) => console.log(err));
+};
+
   return (
     <div className='d-flex flex-column align-items-center pt-4'>
 			<h2>Update Employee</h2>

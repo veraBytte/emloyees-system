@@ -6,6 +6,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import multer from 'multer'
 import path from 'path'
+import { Console } from "console";
 
 const app = express();
 app.use(cors(
@@ -66,13 +67,13 @@ app.get('/get/:id', (req, res) => {
 })
 
 app.put('/update/:id', (req, res) => {
-    const id = req.params.id;
-    const sql = "UPDATE employee set salary = ? WHERE id = ?";
-    con.query(sql, [req.body.salary, id], (err, result) => {
-        if(err) return res.json({Error: "update employee error in sql"});
-        return res.json({Status: "Success"})
-    })
-})
+  const id = req.params.id;
+  const sql = "UPDATE employee SET name = ?, address = ?, salary = ? WHERE id = ?";
+  con.query(sql, [req.body.name, req.body.address, req.body.salary, id], (err, result) => {
+    if (err) return res.json({ Error: "update employee error in SQL" });
+    return res.json({ Status: "Success" });
+  });
+});
 
 app.delete('/delete/:id', (req, res) => {
     const id = req.params.id;
@@ -200,6 +201,17 @@ app.post('/create',upload.single('image'), (req, res) => {
         })
     } )
 })
+
+app.get('/search', (req, res) => {
+    const searchEmail = req.query.email;
+    const sql = "SELECT * FROM employee WHERE email = ?";
+    con.query(sql, [searchEmail], (err, result) => {
+      if (err) {
+        return res.json({ Error: "search employee error in SQL" });
+      }
+      return res.json({ Result: result });
+    });
+  });
 
 app.listen(8081, ()=> {
     console.log("Running");
