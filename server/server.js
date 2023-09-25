@@ -75,6 +75,11 @@ app.put('/update/:id', (req, res) => {
   });
 });
 
+app.get('/logout', (req, res) => {
+    res.clearCookie('token');
+    return res.json({Status: "Success"});
+})
+
 app.delete('/delete/:id', (req, res) => {
     const id = req.params.id;
     const sql = "Delete FROM employee WHERE id = ?";
@@ -172,13 +177,6 @@ app.post('/employeelogin', (req, res) => {
 //     })
 // })
 
-
-
-
-app.get('/logout', (req, res) => {
-    res.clearCookie('token');
-    return res.json({Status: "Success"});
-})
 
 app.post('/create',upload.single('image'), (req, res) => {
 
